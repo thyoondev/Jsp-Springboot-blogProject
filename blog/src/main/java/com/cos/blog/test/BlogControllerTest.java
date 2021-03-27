@@ -11,7 +11,7 @@ public class BlogControllerTest {
 
 	@GetMapping("/test/hello")
 	public String hello() {
-		return "<h1>Hello Springboot World!</h1>";
+		return "<h1>Hello Springboot World!</h1>"; 
 	}
 	
 }
