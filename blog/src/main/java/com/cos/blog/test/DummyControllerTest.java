@@ -1,8 +1,13 @@
 package com.cos.blog.test;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,19 +17,42 @@ import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 
+
+
+
+
 //html파일이 아니라 data를 리턴해주는 controller
 @RestController
 public class DummyControllerTest {
 
+
 	@Autowired //의존성 주입 DI
 	private UserRepository userRepository;
+	
+	
+	//http://localhost:8000/blog/dummy/user
+	@GetMapping("/dummy/users")
+	public List<User> list(){
+		return userRepository.findAll();
+	}
+	
+	//한페이지당 2건의 데이터를 리턴받아 볼 예정
+	@GetMapping("/dummy/user")
+	public List<User> pagelist(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+		Page<User> PagingUser = userRepository.findAll(pageable);
+		
+		
+		List users = PagingUser.getContent();//.getContent()붙히면 데이터만 요청 가능
+		return users;
+	}
+	
 	
 	//{id} 주소로 파마메터를 전달 받을 수 있음
 	//http://localhost:8000/blog/dummy/user/3
 	@GetMapping("/dummy/user/{id}")
 	public User detail(@PathVariable int id) {
 		//user/4를 찾으면 내가 데이터베이스에서 못찾아오게 되면 user가 null이 될 것 아냐?
-		//그럼 return nill이 되잖아.. 그럼 프로그램에 문제가 있지 않겠니?
+		//그럼 return null이 되잖아.. 그럼 프로그램에 문제가 있지 않겠니?
 		//Optional로 너의 User 객체를 감싸서 가져올테니 null인지 아닌지 판단해서 return해!!
 		
 		
