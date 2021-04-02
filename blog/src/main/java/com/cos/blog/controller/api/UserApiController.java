@@ -19,8 +19,6 @@ public class UserApiController {
 	@Autowired
 	private UserService UserService;
 	
-	@Autowired
-	private HttpSession session;
 	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> save(@RequestBody User user) {
@@ -32,14 +30,19 @@ public class UserApiController {
 	}
 	
 	//전통적인 방식의 로그인
+	/*
 	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user){
+	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
 		System.out.println("UserApiController: : login호출됌");
 		User principal = UserService.로그인(user); //principal 접근주체
 		
 		if(principal != null) {
 			session.setAttribute("principal", principal);
 		}
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);s
 	}
+	*/
+	
+	//스프링 시큐리티 방식의 로그인
+	
 }
