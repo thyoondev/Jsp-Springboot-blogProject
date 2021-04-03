@@ -20,7 +20,7 @@ public class UserApiController {
 	private UserService UserService;
 	
 	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController: : save호출됌");
 		// 실제로 DB에 insert를 하고 아래에서 return이 되면 돼요.
@@ -32,7 +32,7 @@ public class UserApiController {
 	//전통적인 방식의 로그인
 	/*
 	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
+	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){ //세션은 오토와이어링할수있음
 		System.out.println("UserApiController: : login호출됌");
 		User principal = UserService.로그인(user); //principal 접근주체
 		

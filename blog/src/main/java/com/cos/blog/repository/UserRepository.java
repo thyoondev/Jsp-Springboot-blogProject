@@ -11,10 +11,11 @@ import com.cos.blog.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 	//JPA Naming전략 (이름으로 쿼리 자동생성)
 	//select * form where username = ?1 and password = ?2;
+	
 	//방법1
-	User findByUsernameAndPassword(String username, String password);
+	//User findByUsernameAndPassword(String username, String password);
 	
 	//방법2(native query)
-//	@Query(value = "select * form where username = ?1 and password = ?2", nativeQuery = true)
-//	User login(String username, String password);
+	//	@Query(value = "select * form where username = ?1 and password = ?2", nativeQuery = true)
+	//	User login(String username, String password);
 }
